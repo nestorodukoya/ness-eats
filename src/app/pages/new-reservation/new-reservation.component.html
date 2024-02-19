@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-6 mt-5">
+        <h1>Make A Reservation</h1>
+        <form>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" name="firstName" [(ngModel)]="reservation.firstName" class="form-control" id="firstName" placeholder="First Name" required>
+                    </div>
+                    <div class="col">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" name="lastName" [(ngModel)]="reservation.lastName" class="form-control" id="lastName" placeholder="Last Name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col">
+                        <label for="date">Reservation Date:</label>
+                        <input type="date" name="date" [(ngModel)]="reservation.date" class="form-control" id="date" placeholder="dd-mm-yyyy" required>
+                    </div>
+                    <div class="col">
+                        <label for="reservationTime">Time:</label>
+                        <input name="time" [(ngModel)]="reservation.time" class="form-control" id="reservationTime" rows="5" placeholder="Enter Reservation Time" required>
+                    </div>
+                    <div class="col">
+                        <label for="numberOfGuests">Number Of Guest:</label>
+                        <input name="numberOfGuests" [(ngModel)]="reservation.numberOfGuests" class="form-control" id="numberOfGuests" rows="5" placeholder="Number Of Guest" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row float-end">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary" (click)="onReservationAdd()">Reserve</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-6 mt-5">
+        <h1 class="text-center">My Reservations</h1>
+
+        <div *ngFor="let reservation of reservationsArray">
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">{{ reservation.firstName }} {{ reservation.lastName }}</h5>
+                  <p class="card-text mb-0"><span class="reservation-title">Reservation:</span> {{ reservation.date }}</p>
+                  <p class="card-text mb-0"><span class="reservation-title">Time:</span> {{ reservation.time }}</p>
+                  <p class="card-text mb-0"><span class="reservation-title">Guests:</span> {{ reservation.numberOfGuests }}</p>
+                  <div class="row">
+                    <div class="col text-end">
+                        <button type="button" class="btn btn-info fulfill" (click)="onFulfilled(reservation)" *ngIf="reservation.fulfilled == false">Fulfill</button>
+                        <button disabled type="button" class="btn btn-success fulfill" *ngIf="reservation.fulfilled == true">Fulfilled</button>
+                        <button type="button" class="btn btn-danger cancel" (click)="onCancel(reservation.id)" *ngIf="reservation.fulfilled == false">Cancel Reservation</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
